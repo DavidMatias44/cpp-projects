@@ -31,11 +31,6 @@ Priority Task::getPriority() const
     return priority;
 }
 
-void Task::setPriority(Priority priority) 
-{
-    this->priority = priority;
-}
-
 State Task::getState() const 
 {
     return state;

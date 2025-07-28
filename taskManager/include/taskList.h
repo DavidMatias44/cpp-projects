@@ -9,7 +9,9 @@ public:
     TaskList() = default;
     void show();
     void add(Task);
+    int setTaskStateById(int, State);
     int searchTaskById(int);
+    void removeTaskById(int);
     void remove(int);
     Task& operator[](int);
 private:

@@ -23,6 +23,21 @@ void TaskList::add(Task newTask)
     std::cout << newTask << std::endl;
 }
 
+int TaskList::setTaskStateById(int id, State state)
+{
+    int index = searchTaskById(id);
+    if (index < 0) {
+        std::cout << "Task with id: " << id << " does not exist." << std::endl << std::endl;
+        return index;
+    }
+
+    tasks[index].setState(state);
+    std::cout << "Task with id: " << id << " has been modified." << std::endl;
+    std::cout << tasks[index] << std::endl;
+    std::cout << std::endl;
+    return index;
+}
+
 int TaskList::searchTaskById(int id)
 {
     if (tasks.empty()) {
@@ -36,6 +51,18 @@ int TaskList::searchTaskById(int id)
         }
     }
     return -1;
+}
+
+void TaskList::removeTaskById(int id)
+{
+    int index = searchTaskById(id);
+    if (index < 0) {
+        std::cout << "Task with id: " << id << " does not exist." << std::endl << std::endl;
+        return;
+    }
+
+    std::cout << std::endl;
+    remove(index);
 }
 
 void TaskList::remove(int index)
