@@ -4,12 +4,18 @@
 #include "tokenType.h"
 #include <iostream>
 
-struct token
+class Token
 {
+private:
     TokenType type;
     std::string value;
-};
 
-typedef struct token Token;
+public:
+    void setType(TokenType);
+    TokenType getType() const;
+    void setValue(std::string);
+    std::string getValue() const;
+    friend std::ostream& operator<<(std::ostream&, const Token&);
+};
 
 #endif // TOKEN_H
