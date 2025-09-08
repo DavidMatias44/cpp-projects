@@ -22,6 +22,6 @@ std::string Token::getValue() const
 
 std::ostream& operator<<(std::ostream& os, const Token& token)
 {
-    os << token.getType() << "(" << token.getValue() << ")";
+    os << token.getType() << "('" << token.getValue() << "')";
     return os;
 }

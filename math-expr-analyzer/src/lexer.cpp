@@ -22,17 +22,18 @@ std::vector<Token> Lexer::tokenize()
             token.setType(TokenType::NUMBER);
         } else {
             switch (currentChar) {
-                case '+': {
-                    token.setValue(std::string{currentChar});
-                    token.setType(TokenType::OPERATOR_ADD);
-                    consumeChar();
-                } break;
-                default : {
-                    token.setValue(std::string{currentChar});
-                    token.setType(TokenType::UNKNOWN);
-                    consumeChar();
-                }
+                case '+': { token.setType(TokenType::OPERATOR_ADD); } break;
+                case '-': { token.setType(TokenType::OPERATOR_SUB); } break;
+                case '*': { token.setType(TokenType::OPERATOR_MUL); } break;
+                case '/': { token.setType(TokenType::OPERATOR_DIV); } break;
+                case '^': { token.setType(TokenType::OPERATOR_POW); } break;
+                case '(': { token.setType(TokenType::PAREN_OPEN);   } break;
+                case ')': { token.setType(TokenType::PAREN_CLOSE);  } break;
+                default : { token.setType(TokenType::UNKNOWN);      }
             }
+            
+            token.setValue(std::string{currentChar});
+            consumeChar();
         }
 
         tokens.push_back(token);
