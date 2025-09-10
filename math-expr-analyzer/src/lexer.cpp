@@ -6,6 +6,7 @@ Lexer::Lexer(std::string content) : content(content)
     currentPos = 0;
     currentChar = content.empty() ? '\0' : content[currentPos];
     nextPos = currentPos + 1;
+    nextChar = nextPos >= content.size() ? '\0' : content[nextPos];
 }
 
 std::vector<Token> Lexer::tokenize()
@@ -53,7 +54,9 @@ std::string Lexer::consumeNumber()
 {
     std::string number = "";
 
-    while (std::isdigit(currentChar)) {
+    while (std::isdigit(currentChar) || currentChar == '.') {
+        if (currentChar == '.' && !std::isdigit(nextChar)) break;
+
         number += currentChar;
         consumeChar();
     }
@@ -63,11 +66,9 @@ std::string Lexer::consumeNumber()
 
 void Lexer::consumeChar()
 {
-    if (nextPos < content.size()) {
-        currentPos = nextPos;
-        currentChar = content[nextPos++];
-        return;
-    }
+    currentPos++;
+    currentChar = (currentPos >= content.size()) ? '\0' : content[currentPos];
 
-    currentChar = '\0';
+    nextPos = currentPos + 1;
+    nextChar = (nextPos >= content.size()) ? '\0' : content[nextPos];
 }

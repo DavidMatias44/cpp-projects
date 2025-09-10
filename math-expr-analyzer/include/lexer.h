@@ -12,6 +12,7 @@ private:
     std::string content;
     char currentChar;
     int currentPos;
+    char nextChar;
     int nextPos;
 
 public:
