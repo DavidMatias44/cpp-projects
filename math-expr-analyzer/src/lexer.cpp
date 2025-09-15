@@ -18,9 +18,13 @@ std::vector<Token> Lexer::tokenize()
         
         consumeSpaces();
 
-        if (std::isdigit(currentChar)) {
-            token.setValue(consumeNumber());
-            token.setType(TokenType::NUMBER);
+        if (std::isdigit(currentChar) || currentChar == '.') {
+            bool isValid = true;
+            token.setValue(consumeNumber(isValid));
+            if (isValid)
+                token.setType(TokenType::NUMBER);
+            else
+                token.setType(TokenType::UNKNOWN);
         } else {
             switch (currentChar) {
                 case '+': { token.setType(TokenType::OPERATOR_ADD); } break;
@@ -50,12 +54,31 @@ void Lexer::consumeSpaces()
     }
 }
 
-std::string Lexer::consumeNumber()
+std::string Lexer::consumeNumber(bool& isValid)
 {
     std::string number = "";
+    bool hasDot = false;
 
     while (std::isdigit(currentChar) || currentChar == '.') {
-        if (currentChar == '.' && !std::isdigit(nextChar)) break;
+        if (currentChar == '.') {
+            if (! std::isdigit(nextChar)) {
+                number += currentChar;
+                consumeChar();
+                
+                if (number.size() == 1) isValid = false;
+                break;
+            }
+
+            hasDot = true;
+        }
+
+        if (nextChar == '.') {
+            if (hasDot) {
+                number += currentChar;
+                consumeChar();
+                break;
+            }
+        }
 
         number += currentChar;
         consumeChar();

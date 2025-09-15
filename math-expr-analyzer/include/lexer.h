@@ -18,7 +18,7 @@ private:
 public:
     Lexer(std::string);
     std::vector<Token> tokenize();
-    std::string consumeNumber();
+    std::string consumeNumber(bool&);
     void consumeSpaces();
     void consumeChar();
 };

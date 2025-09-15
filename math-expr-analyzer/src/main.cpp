@@ -3,7 +3,7 @@
 
 int main(void)
 {   
-    std::string expr = "2.5..4.645 4 1233.2 123. .23";
+    std::string expr = "2 2. .2 2.2 ..2 2.. 2..5 .2. 2...5";
 
     Lexer lexer(expr);
     std::vector<Token> tokens = lexer.tokenize();
